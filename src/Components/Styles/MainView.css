@@ -1,0 +1,79 @@
+.container {
+  display: flex;
+  max-width: 100%;
+  width: 100%;
+  height: 100vh;
+  background-color: #f4f4f4;
+  /* Light gray background */
+  overflow: scroll;
+  /* Prevent sidebar from overflowing */
+}
+
+.sidebar {
+  flex: 0 0 250px;
+  background-color: #303030;
+  /* Dark gray sidebar */
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  /* Add a subtle shadow for depth */
+  color: rgb(24, 4, 4);
+  /* White text color */
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.main-content {
+  max-height: fit-content;
+  overflow: auto;
+  flex: 1;
+  background-color: #fff;
+  /* White main content background */
+  padding: 20px;
+  margin: 20px;
+  border-radius: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  /* Add a subtle shadow for depth */
+  color: #333333;
+  /* Dark gray text color */
+}
+
+.Sticky_header {
+  position: sticky;
+  top: 0;
+  background-color: #fff;
+  /* Add a background color for visibility */
+  padding: 10px 20px;
+  /* Add padding for spacing */
+  z-index: 1;
+  /* Ensure it appears above other content */
+}
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    /* Stack sidebar and main content vertically on smaller screens */
+  }
+
+  .sidebar {
+    flex: none;
+    /* Sidebar should not flex on smaller screens */
+    width: 100%;
+    /* Occupy full width on smaller screens */
+    border-radius: 0;
+    /* Remove border-radius on smaller screens */
+    margin-bottom: 20px;
+    /* Add some space between sidebar and main content */
+  }
+
+  .main-content {
+    max-height: fit-content;
+    overflow: auto;
+
+    margin: 0;
+    /* Remove margin on smaller screens */
+    border-radius: 0;
+    /* Remove border-radius on smaller screens */
+  }
+
+}

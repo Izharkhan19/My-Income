@@ -1,0 +1,104 @@
+.dash-text-color {
+    color: rgb(65, 5, 65);
+}
+
+.dash-card-text-color {
+    color: rgb(145, 102, 145);
+    font-weight: bold;
+}
+
+.dash-history-containers {
+    background-color: azure;
+    border: 0.2px solid rgb(221, 210, 210);
+    border-radius: 10px;
+    padding: 2px;
+}
+
+.dash-salary-expence {
+    display: flex;
+    /* Use flexbox */
+}
+
+.dash-cards-container {
+    justify-content: space-around;
+}
+
+.dash-cards {
+    margin: 10px;
+    padding: 10px;
+    background-color: azure;
+    border: 0.2px solid rgb(221, 210, 210);
+    border-radius: 10px;
+    width: -moz-available;
+    max-width: -moz-available;
+}
+
+.dash-salary-expence>div {
+    flex: 1;
+    /* Each div takes equal space */
+    /* border: 1px solid black; */
+    /* Just for visualization */
+    /* padding: 10px; */
+    /* Add padding for spacing */
+}
+
+.green-text {
+    color: green;
+    font-weight: bold;
+}
+
+.red-text {
+    color: red;
+    font-weight: bold;
+}
+
+/* Pre-loader */
+.preloader {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #f4f4f4;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.preloader.visible {
+    display: flex;
+    opacity: 1;
+}
+
+.loader {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #3498db;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 2s linear infinite;
+    margin-bottom: 20px;
+}
+
+.loading-text {
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Pre-loader */
