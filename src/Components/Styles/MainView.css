@@ -1,79 +1,74 @@
-.container {
-  display: flex;
-  max-width: 100%;
-  width: 100%;
-  height: 100vh;
-  background-color: #f4f4f4;
-  /* Light gray background */
-  overflow: scroll;
-  /* Prevent sidebar from overflowing */
-}
-
-.sidebar {
-  flex: 0 0 250px;
-  background-color: #303030;
-  /* Dark gray sidebar */
-  padding: 20px;
-  border-radius: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  /* Add a subtle shadow for depth */
-  color: rgb(24, 4, 4);
-  /* White text color */
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
-.main-content {
-  max-height: fit-content;
+.container-main {
+  width: 100% !important;
+  height: 100% !important;
   overflow: auto;
-  flex: 1;
-  background-color: #fff;
-  /* White main content background */
-  padding: 20px;
-  margin: 20px;
-  border-radius: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  /* Add a subtle shadow for depth */
-  color: #333333;
-  /* Dark gray text color */
 }
 
-.Sticky_header {
-  position: sticky;
+.box-shadow {
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+  height: 100% !important;
+  padding: 10px;
+}
+
+
+.container-main {
+  /* background-color: blue; */
+  height: 100vh;
+  padding: 5px;
+}
+
+/* Optional: Adjust MainContent height if needed */
+.main-content-area {
+  margin-top: 50px !important;
+  height: calc(100vh - 12vh
+      /* height of Breadcrumbs and hr */
+    );
+  max-height: calc(100vh - 12vh
+      /* height of Breadcrumbs and hr */
+    );
+}
+
+.fix-main-header {
+  overflow: hidden;
+  /* background-color: #333; */
+  position: fixed;
   top: 0;
-  background-color: #fff;
-  /* Add a background color for visibility */
-  padding: 10px 20px;
-  /* Add padding for spacing */
-  z-index: 1;
-  /* Ensure it appears above other content */
+  width: 100%;
 }
 
-@media (max-width: 768px) {
-  .container {
-    flex-direction: column;
-    /* Stack sidebar and main content vertically on smaller screens */
-  }
+ Scrollbar manage
+.main-content-area::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 5px;
+  /* Adjust width for desired indicator thickness */
+  background-color: rgba(0, 0, 0, 0.2);
+  /* Set indicator color and transparency */
+  opacity: 0;
+  /* Hide initially */
+  transition: opacity 0.3s ease;
+  /* Smooth fade-in on hover */
+}
 
-  .sidebar {
-    flex: none;
-    /* Sidebar should not flex on smaller screens */
-    width: 100%;
-    /* Occupy full width on smaller screens */
-    border-radius: 0;
-    /* Remove border-radius on smaller screens */
-    margin-bottom: 20px;
-    /* Add some space between sidebar and main content */
-  }
+.main-content-area:hover::after {
+  opacity: 1;
+  /* Show indicator on hover */
+}
 
-  .main-content {
-    max-height: fit-content;
-    overflow: auto;
+.main-content-area {
+  height: 100vh;
+  /* Set full viewport height */
+  overflow: hidden;
+  /* Hide scrollbar */
+  position: relative;
+  /* Required for custom scroll indicator */
+}
 
-    margin: 0;
-    /* Remove margin on smaller screens */
-    border-radius: 0;
-    /* Remove border-radius on smaller screens */
-  }
-
+.main-content-area::-webkit-scrollbar {
+  /* Chrome, Safari, etc. */
+  display: none;
+  /* Hide default scrollbar */
 }

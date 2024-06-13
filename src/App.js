@@ -12,7 +12,9 @@ function App() {
   useEffect(() => {
     // Simulate fetching data from an API
     setTimeout(() => {
-      { /* Your fetched data */ };
+      {
+        /* Your fetched data */
+      }
 
       setLoading(false);
     }, 1200); // Simulate a 2-second delay for fetching data
@@ -32,14 +34,10 @@ function App() {
           pauseOnHover
           theme="colored"
         />
-        {loading ? <Preloader /> : (
-          <MainView />
-        )}
+        {loading ? <Preloader /> : <MainView />}
       </BrowserRouter>
     </>
   );
 }
-
-
 
 export default App;
