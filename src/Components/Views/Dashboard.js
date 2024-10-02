@@ -53,60 +53,63 @@ const Dashboard = () => {
     let resExpenses = await getExpensesData();
     if (resIncomes && resExpenses) {
       // Trans Histor :
-      const history = [...resIncomes, ...resExpenses];
-      console.log("history", history);
-      history.sort((a, b) => {
-        return new Date(b.createdAt) - new Date(a.createdAt);
-      });
+      debugger;
+      if (!resIncomes.error && !resExpenses.error) {
+        const history = [...resIncomes, ...resExpenses];
+        console.log("history", history);
+        history.sort((a, b) => {
+          return new Date(b.createdAt) - new Date(a.createdAt);
+        });
+        setTransHistory(history);
 
-      setTransHistory(history);
+        // Trans Histor End:
+        // Inc
+        let tempAmountInc = 0;
+        let tempAmountArrayInc = [];
+        let ArrayIncLabels = [];
+        resIncomes &&
+          resIncomes.map((itm) => {
+            tempAmountArrayInc.push(itm.amount);
+            tempAmountInc += itm.amount;
+            ArrayIncLabels.push(dateFormate(itm.date));
+          });
+        setTotalIncome(tempAmountInc);
+        setIncome(resIncomes);
+        // Inc End
 
-      // Trans Histor End:
-      // Inc
-      let tempAmountInc = 0;
-      let tempAmountArrayInc = [];
-      let ArrayIncLabels = [];
-      resIncomes.map((itm) => {
-        tempAmountArrayInc.push(itm.amount);
-        tempAmountInc += itm.amount;
-        ArrayIncLabels.push(dateFormate(itm.date));
-      });
-      setTotalIncome(tempAmountInc);
-      setIncome(resIncomes);
-      // Inc End
+        // Exp
+        let tempAmountExp = 0;
+        let tempAmountArrayExp = [];
+        resExpenses.map((itm) => {
+          tempAmountArrayExp.push(itm.amount);
+          tempAmountExp += itm.amount;
+        });
+        setExpense(resExpenses);
+        setTotalExpense(tempAmountExp);
 
-      // Exp
-      let tempAmountExp = 0;
-      let tempAmountArrayExp = [];
-      resExpenses.map((itm) => {
-        tempAmountArrayExp.push(itm.amount);
-        tempAmountExp += itm.amount;
-      });
-      setExpense(resExpenses);
-      setTotalExpense(tempAmountExp);
+        let tempObj = {
+          labels: ArrayIncLabels,
+          datasets: [
+            {
+              label: "Income",
+              data: tempAmountArrayInc,
+              borderColor: "rgb(53, 162, 235)",
+              backgroundColor: "rgba(53, 162, 235, 0.5)",
+              tension: 0.3,
+            },
+            {
+              label: "Expense",
+              data: tempAmountArrayExp,
+              borderColor: "rgb(255, 99, 132)",
+              backgroundColor: "rgba(255, 99, 132, 0.5)",
+              tension: 0.3,
+            },
+          ],
+        };
 
-      let tempObj = {
-        labels: ArrayIncLabels,
-        datasets: [
-          {
-            label: "Income",
-            data: tempAmountArrayInc,
-            borderColor: "rgb(53, 162, 235)",
-            backgroundColor: "rgba(53, 162, 235, 0.5)",
-            tension: 0.3,
-          },
-          {
-            label: "Expense",
-            data: tempAmountArrayExp,
-            borderColor: "rgb(255, 99, 132)",
-            backgroundColor: "rgba(255, 99, 132, 0.5)",
-            tension: 0.3,
-          },
-        ],
-      };
-
-      setIncExp(tempObj);
-      // Exp End
+        setIncExp(tempObj);
+        // Exp End
+      }
     }
   };
 

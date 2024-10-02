@@ -1,22 +1,26 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "react-date-picker/dist/DatePicker.css";
 import "react-calendar/dist/Calendar.css";
-
+import CreatableSelect from "react-select/creatable";
 import { useState } from "react";
 import { Col, Form, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { ToastError, ToastSuccess } from "../../Common/Toaster";
-import { saveIncomeData } from "../../Services/IncomeServices";
+import {
+  getIncomeDetailByid,
+  getIncomeDetails,
+  saveIncomeData,
+} from "../../Services/IncomeServices";
 import { handleKeyPress } from "../../Common/CommonFunctions";
 
 export default function IncomeModal({ ...props }) {
+  let initCategory = { value: "Select category", label: "Select category" };
+  const [chooseCategory, setChooseCategory] = useState(initCategory);
   const [startDate, setStartDate] = useState(new Date());
-
-  const handleClose = () => props.setShow(false);
   const [incomeInput, setIncomeInput] = useState({
     title: "",
     amount: "",
@@ -24,6 +28,20 @@ export default function IncomeModal({ ...props }) {
     date: new Date(),
     details: "",
   });
+
+  const handleClose = () => props.setShow(false);
+
+  let CategoryDropdown = [
+    { value: "Select category", label: "Select category" },
+    { value: "Salary", label: "Salary" },
+    { value: "Investments", label: "Investments" },
+    { value: "Stocks", label: "Stocks" },
+    { value: "Bitcoin", label: "Bitcoin" },
+    { value: "Bank Transfer", label: "Bank Transfer" },
+    { value: "Freelancing", label: "Freelancing" },
+    { value: "Other", label: "Other" },
+  ];
+
   const handleIncomeInput = (e) => {
     const { name, value } = e.target;
     setIncomeInput({ ...incomeInput, [name]: value });
@@ -65,6 +83,21 @@ export default function IncomeModal({ ...props }) {
       }
     }
   };
+
+  const fetchIncomeDetails = async (incomeId) => {
+    let input = {
+      id: incomeId,
+    };
+    let res = await getIncomeDetailByid(input);
+
+    console.log(res);
+  };
+
+  useEffect(() => {
+    if (props.incomeId) {
+      fetchIncomeDetails(props.incomeId);
+    }
+  }, []);
 
   return (
     <>
@@ -108,7 +141,7 @@ export default function IncomeModal({ ...props }) {
                   </Form.Group>
                   <Form.Group controlId="category" className="mb-0">
                     <Form.Label>Category</Form.Label>
-                    <Form.Select
+                    {/* <Form.Select
                       name="category"
                       value={incomeInput.category}
                       onChange={handleIncomeInput}
@@ -122,7 +155,33 @@ export default function IncomeModal({ ...props }) {
                       <option value="Bitcoin">Bitcoin</option>
                       <option value="Bank Transfer">Bank Transfer</option>
                       <option value="Other">Other</option>
-                    </Form.Select>
+                    </Form.Select> */}
+
+                    {/* <FloatingLabel controlId="floatingInput" label=""> */}
+                    <CreatableSelect
+                      placeholder={"Category"}
+                      isClearable
+                      options={CategoryDropdown}
+                      onChange={(event) => {
+                        // setChooseCategory(event);
+                        setIncomeInput({
+                          ...incomeInput,
+                          ["category"]: event !== null ? event.value : "",
+                        });
+                      }}
+                      value={
+                        incomeInput.category !== ""
+                          ? {
+                              label: incomeInput.category,
+                              value: incomeInput.category,
+                            }
+                          : {
+                              value: "Select category",
+                              label: "Select category",
+                            }
+                      }
+                    />
+                    {/* </FloatingLabel> */}
                   </Form.Group>
                   <Form.Group controlId="date" className="mb-3 mt-2">
                     <Form.Label>Date</Form.Label>

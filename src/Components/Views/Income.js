@@ -34,6 +34,7 @@ import NoIncomeFound from "../../Assets/SVG_Codes/noIncomeFound";
 
 const Income = () => {
   const [TotalIncome, setTotalIncome] = useState(0);
+  const [incomeId, setIncomeId] = useState(null);
   const [incomeRes, setIncomeRes] = useState([]);
   const [loading, setLoading] = useState(false);
   const [show, setShow] = useState(false);
@@ -116,7 +117,14 @@ const Income = () => {
         {incomeRes.length !== 0 ? (
           incomeRes?.map((itm, idx) => (
             <>
-              <Col key={itm._id} className="p-1">
+              <Col
+                key={itm._id}
+                className="p-1"
+                onClick={() => {
+                  setIncomeId(itm._id);
+                  handleShow();
+                }}
+              >
                 <Card className=" mapped-card-design">
                   <Card.Body className="p-1">
                     <Card.Title className="d-flex justify-content-between">
@@ -209,6 +217,7 @@ const Income = () => {
       </Row>
       {show && (
         <IncomeModal
+          incomeId={incomeId}
           show={show}
           setShow={setShow}
           fetchIncomes={fetchIncomes}

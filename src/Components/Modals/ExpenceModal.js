@@ -1,10 +1,9 @@
 import React from "react";
-
+import CreatableSelect from "react-select/creatable";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "react-date-picker/dist/DatePicker.css";
 import "react-calendar/dist/Calendar.css";
-
 import { useState } from "react";
 import { Col, Form, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
@@ -15,8 +14,9 @@ import { handleKeyPress } from "../../Common/CommonFunctions";
 import { saveExpenseData } from "../../Services/ExpenseServices";
 
 export default function ExpenceModal({ ...props }) {
+  let initCategory = { value: "Select category", label: "Select category" };
+  const [chooseCategory, setChooseCategory] = useState(initCategory);
   const [startDate, setStartDate] = useState(new Date());
-
   const handleClose = () => props.setShow(false);
   const [expenceInput, setExpenceInput] = useState({
     title: "",
@@ -29,6 +29,17 @@ export default function ExpenceModal({ ...props }) {
     const { name, value } = e.target;
     setExpenceInput({ ...expenceInput, [name]: value });
   };
+
+  let CategoryDropdown = [
+    { value: "Select category", label: "Select category" },
+    { value: "Salary", label: "Salary" },
+    { value: "Investments", label: "Investments" },
+    { value: "Stocks", label: "Stocks" },
+    { value: "Bitcoin", label: "Bitcoin" },
+    { value: "Bank Transfer", label: "Bank Transfer" },
+    { value: "Freelancing", label: "Freelancing" },
+    { value: "Other", label: "Other" },
+  ];
 
   const handleSaveExpence = async (e) => {
     e.preventDefault();
@@ -109,7 +120,7 @@ export default function ExpenceModal({ ...props }) {
                   </Form.Group>
                   <Form.Group controlId="category" className="mb-0">
                     <Form.Label>Category</Form.Label>
-                    <Form.Select
+                    {/* <Form.Select
                       name="category"
                       value={expenceInput.category}
                       onChange={handleExpenceInput}
@@ -123,7 +134,30 @@ export default function ExpenceModal({ ...props }) {
                       <option value="Bitcoin">Bitcoin</option>
                       <option value="Bank Transfer">Bank Transfer</option>
                       <option value="Other">Other</option>
-                    </Form.Select>
+                    </Form.Select> */}
+                    <CreatableSelect
+                      placeholder={"Category"}
+                      isClearable
+                      options={CategoryDropdown}
+                      onChange={(event) => {
+                        // setChooseCategory(event);
+                        setExpenceInput({
+                          ...expenceInput,
+                          ["category"]: event !== null ? event.value : "",
+                        });
+                      }}
+                      value={
+                        expenceInput.category !== ""
+                          ? {
+                              label: expenceInput.category,
+                              value: expenceInput.category,
+                            }
+                          : {
+                              value: "Select category",
+                              label: "Select category",
+                            }
+                      }
+                    />
                   </Form.Group>
                   <Form.Group controlId="date" className="mb-3 mt-2">
                     <Form.Label>Date</Form.Label>

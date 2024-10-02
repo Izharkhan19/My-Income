@@ -5,6 +5,7 @@ import Dashboard from './Views/Dashboard';
 import Transactions from './Views/Transactions';
 import Income from './Views/Income';
 import Expense from './Views/Expense';
+import AdobeFile from './Views/ADOBE/AdobeFile';
 
 const MainContent = () => {
     return (
@@ -15,6 +16,7 @@ const MainContent = () => {
                 <Route path="/transactions" element={<Transactions />} />
                 <Route path="/income" element={<Income />} />
                 <Route path="/expense" element={<Expense />} />
+                <Route path="/adobefile" element={<AdobeFile />} />
             </Routes>
         </>
     );
