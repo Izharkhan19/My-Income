@@ -37,7 +37,7 @@ const AdobeFile = () => {
         const response = await getAccessToken(authCode); // Fetch access token using the auth code
         response;
         setData(response?.data?.access_token);
-        token = response?.data?.access_token;
+
         console.log("Access Token Data:", response);
       }
     };
