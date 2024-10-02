@@ -6,7 +6,8 @@ const AdobeFile = () => {
   const [data, setData] = React.useState();
 
   const CLIENT_ID = "ats-75bad9d1-3b4a-4b31-8865-8612d5ac1247";
-  const glitch_URL = "https://melodic-faint-custard.glitch.me";
+  // const glitch_URL = "https://melodic-faint-custard.glitch.me";
+  const glitch_URL = "https://my-income-ui.vercel.app/adobefile";
 
   const getAccessToken = async (authCode) => {
     const authUrl = `${basepath.base_URL}api/v1/get-access-token`;
